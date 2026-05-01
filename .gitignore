@@ -1,0 +1,57 @@
+# Data
+data/raw/
+data/processed/*_large.csv
+*.tif
+*.tiff
+*.nc
+*.hdf
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.qix
+# Commit the small processed CSVs, the geopackages, and the event-level
+# parquet so the pipeline rebuilds from a clean clone without needing to
+# re-acquire the upstream sources.
+!data/processed/*.csv
+!data/processed/*.gpkg
+!data/processed/*.parquet
+!data/processed/*.json
+
+# Backup of the original burn-image pair before center-crop matching.
+# The matched copies in assets/img/ are what the slider uses.
+assets/img/_originals_burn/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.venv/
+.env
+*.egg-info/
+
+# Quarto
+/.quarto/
+/_site/
+/_freeze/
+/_book/
+index.quarto_ipynb
+appendix.quarto_ipynb
+about.quarto_ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Large exports
+figures/hero/
+*.zip
+*.7z

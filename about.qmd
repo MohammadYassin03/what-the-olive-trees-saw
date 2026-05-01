@@ -1,0 +1,47 @@
+---
+title: "About this project"
+format:
+  html:
+    toc: true
+---
+
+## Author
+
+Mohammad Yassin, graduate student, Data Science & Analytics, Georgetown University.
+
+## Course
+
+DSAN-5200 · Spring 2026 · Final project.
+
+## Source code
+
+All source is in the [project repository](https://github.com/dsan-5200/project-2026-35).
+
+Raw data is not committed (per course instructions and repository size limits). Processed CSVs used to render the site are committed under `data/processed/`.
+
+## Citation
+
+If you reference this project, please cite as:
+
+> Yassin, M. (2026). *What the Olive Trees Saw*. DSAN-5200 final project, Georgetown University.
+
+---
+
+## AI usage log {#ai-usage-log}
+
+Per course policy, the analytical framing, the topic, the village selection, the source list, and all factual claims are the author's. I used Claude (Anthropic) in a supporting role across the writing and the build, with the responsibilities below.
+
+| Role | Tool / Model | What it was used for |
+|---|---|---|
+| Boilerplate code | Claude | Quarto and SCSS setup, plotting helper functions, occasional debugging |
+| Proofreading | Claude | Light copy-editing on draft prose for grammar and clarity |
+| Reference checks | Claude | Cross-checking dataset names and citation formats against the cited source |
+| Drafting and structural editing | Claude | Drafting paragraph scaffolds and section transitions from the author's notes and outline. The author then rewrote each draft to match the project's voice and verified every factual claim against a primary source listed in the footnotes. |
+
+All sources were verified by the author. No AI was used to generate any of the imagery in this project.
+
+---
+
+## Acknowledgments
+
+Data courtesy of ACLED, UN OCHA oPt, Peace Now, the Foundation for Middle East Peace, the Israeli Central Bureau of Statistics, Yesh Din, B'Tselem, the Palestinian Central Bureau of Statistics, and OpenStreetMap contributors.

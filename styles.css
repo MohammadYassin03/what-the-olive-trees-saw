@@ -1,0 +1,81 @@
+/* Supplementary CSS , for things SCSS can't easily express */
+
+/* Smooth image loading */
+img {
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+img.loaded, img[src] {
+  opacity: 1;
+}
+
+/* Plotly figure container */
+.plotly-figure {
+  margin: 2.5rem 0;
+  min-height: 450px;
+}
+
+/* Hero landscape image at top */
+.hero-image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-height: 80vh;
+  object-fit: cover;
+}
+
+/* Before/after swipe container */
+.swipe-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid #D9D2C0;
+}
+
+/* Infographic grid */
+.infographic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid #D9D2C0;
+  border-bottom: 1px solid #D9D2C0;
+}
+
+.infographic-cell {
+  text-align: center;
+}
+
+/* Scroll-triggered reveal (optional, requires JS) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Two-column layout for comparison */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+@media (max-width: 680px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* Print */
+@media print {
+  .navbar, .page-footer { display: none; }
+}

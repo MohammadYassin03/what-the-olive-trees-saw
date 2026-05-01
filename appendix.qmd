@@ -1,0 +1,236 @@
+---
+title: "Technical Appendix"
+subtitle: "Data sources, processing pipeline, and analytical choices"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+---
+
+::: {.deck}
+This appendix documents how the figures and headline numbers in the narrative
+were produced. It is written for a technical reader; the narrative itself
+assumes none of this. Everything here is reproducible from the repository:
+the raw data, the cleaning code, and the rendering pipeline are all version-
+controlled.
+:::
+
+---
+
+## 1. Research questions
+
+The narrative addresses three descriptive questions:
+
+1. **Has Israeli settlement expansion in the West Bank continued, and at what rate, since 1972?**  Measured by annual settler population (Israeli CBS / Peace Now compilation) and built-up footprint area (Peace Now boundary polygons via HDX).
+2. **How spatially close is the documented settler / state violence to the settlement footprint?**  Measured by the distribution of distances from each civilian-targeting event to the nearest Peace Now settlement boundary.
+3. **Does that proximity track at the governorate scale as well as at the point scale?**  Measured by the Pearson correlation between settlement count and event count across the West Bank's eleven governorates.
+
+The questions are descriptive, not causal. We do not attempt to attribute individual events to specific settlements, and we do not construct counterfactuals.
+
+---
+
+## 2. Data sources
+
+| Source | Variable | Coverage | Access |
+|---|---|---|---|
+| ACLED via HDX | Civilian-targeting events, fatalities, perpetrator | West Bank, 2016–2026 | [data.humdata.org](https://data.humdata.org/dataset/acled-data-for-state-of-palestine) |
+| Peace Now via HDX | Built-up settlement boundary polygons | Current, 174 settlements | [data.humdata.org](https://data.humdata.org/dataset/state-of-palestine-settlements) |
+| Israeli CBS / Peace Now / FMEP | Annual settler population (West Bank, East Jerusalem) | 1972–2025 | Compiled in `data/processed/settler_population_annual.csv` |
+| UN OCHA oPt via HDX | Areas A / B / C polygons (Oslo II, 1995); Separation Barrier alignment (Jan 2018) | Current | [data.humdata.org](https://data.humdata.org/dataset/state-of-palestine-oslo-agreement) |
+| UN OCHA oPt via HDX | Governorate (admin level 2) boundaries | Current | [data.humdata.org](https://data.humdata.org/dataset/cod-ab-pse) |
+| OpenStreetMap (Geofabrik) | `landuse=orchard` polygons | Current | [Geofabrik Palestine extract](https://download.geofabrik.de/asia/palestine.html) |
+
+Raw downloads are not committed to the repository. They are reconstructed by re-running `analysis/01_acquire.py`. Processed CSVs and GeoPackages used by the narrative are committed under `data/processed/`.
+
+::: {.callout-note}
+ACLED's coverage of the West Bank is comprehensive from 2016 onward. Earlier years are sparse because ACLED's MENA expansion (then-named ACLED-Asia) reached the territory in 2015. The narrative reports 2016 as the series start for that reason.
+:::
+
+---
+
+## 3. Processing pipeline
+
+```
+data/raw/                       (not committed; reproduced by 01_acquire.py)
+   │
+   ▼
+analysis/01_acquire.py          download CSVs, shapefiles, OSM extract
+   │
+   ▼
+analysis/02_clean.py            spatial joins, governorate canonicalisation,
+                                event-level damage keyword tagging
+   │
+   ▼
+data/processed/*                acled_monthly_westbank.csv
+                                acled_events_westbank.parquet
+                                settlements.gpkg, settlements_by_governorate.csv
+                                governorates.gpkg
+                                orchards_westbank.gpkg, orchards_by_governorate.csv
+                                territorial.gpkg
+                                settler_population_annual.csv
+                                headline_stats.csv
+   │
+   ├──► analysis/03_analyze.py  static figures (figures/static/*.png),
+   │                            interactive heatmap + territorial map
+   │                            (interactive/*.html), headline_stats.csv
+   │
+   ├──► analysis/04_interactive.py
+   │                            Plotly versions of seven static figures
+   │                            (interactive/*.html)
+   │
+   ▼
+index.qmd  +  appendix.qmd  +  about.qmd
+   │
+   ▼
+quarto render  ──►  _site/      static HTML site, deployed to GU Domains
+```
+
+Each stage is idempotent. Re-running it from clean-checked-out raw data reproduces the processed outputs byte-for-byte (modulo file modification timestamps). Stages 03 and 04 read only from `data/processed/` and write only to `figures/` and `interactive/`.
+
+### 3.1 Spatial joins
+
+All spatial work is done in **EPSG:2039** (Israeli Transverse Mercator) because it preserves area and distance within the study region. Source layers ship in EPSG:4326 (HDX, OSM), EPSG:32636 (the OCHA barrier shapefile), or EPSG:2039 (Peace Now); each layer is reprojected on load.
+
+The event-to-settlement distance is computed as the planar distance from each ACLED event point to the unioned Peace Now settlement multipolygon, in metres, then divided by 1000. We use `gdf.geometry.distance(sett.union_all())` rather than a per-polygon distance to avoid the cost of evaluating 174 distance fields per point.
+
+### 3.2 Governorate-name canonicalisation
+
+ACLED follows the Palestinian Authority's Arabic-transliterated form for two governorates; OCHA uses the shorter English form. We canonicalise to the OCHA form so the settlement layer (joined to OCHA polygons) and the ACLED event layer can merge on `governorate` without dropping rows.
+
+| ACLED form | OCHA form (canonical) |
+|---|---|
+| `Al Quds` / `Al-Quds` | `Jerusalem` |
+| `Ramallah and Al Bireh` / `Ramallah and Al-Bireh` | `Ramallah` |
+
+This single fix raises the Pearson correlation between settlement count and event count from r = 0.23 (with Ramallah and Jerusalem incorrectly recorded as zero settlements) to r = 0.67. The earlier draft of the project recorded the lower value; the fix is documented in commit history.
+
+### 3.3 Damage-keyword tagging
+
+The structured ACLED fields stop at perpetrator and fatality count. The narrative texture lives in the free-text `notes` field. `02_clean.py` runs a case-insensitive substring scan on each event's notes for seven categories, each represented as a boolean column on the event record:
+
+| Column | Keywords matched |
+|---|---|
+| `olive_or_tree` | `olive`, `tree`, `grove`, `orchard` |
+| `livestock`     | `sheep`, `goat`, `cattle`, `livestock`, `flock`, `herd` |
+| `home_property` | `home`, `house`, `property`, `residence`, `dwelling` |
+| `vehicle`       | `vehicle`, `car`, `truck`, `tractor` |
+| `mosque_school` | `mosque`, `school`, `church`, `clinic` |
+| `crop_field`    | `crop`, `field`, `wheat`, `barley`, `harvest`, `farmland` |
+| `burn`          | `burn`, `arson`, `set fire`, `torched`, `incinerat` |
+
+These are floors, not ceilings. An attack that burns a grove without using the word "olive" or "tree" will not be tagged. Categories overlap: a single event can flag four of the seven columns. The damage-breakdown chart in the main narrative makes both points explicit.
+
+### 3.4 Geometry simplification for the territorial map
+
+The Folium territorial map (`interactive/territorial_map.html`) inlines its GeoJSON into the rendered HTML. Without simplification the file weighed 9 MB, which is too heavy for an in-page embed. We apply `geometry.simplify(tolerance=0.0003, preserve_topology=True)` (≈ 30 m at this latitude) to the Oslo, barrier, and settlement layers, and 0.0008 (≈ 80 m) to the governorate boundaries. The visual effect is indistinguishable at the West Bank zoom levels the embed targets, and the rendered HTML drops to 1.3 MB.
+
+---
+
+## 4. Figures
+
+### 4.1 Static vs interactive
+
+The narrative is built around eight static figures and nine interactive components. Static figures are PNG/SVG produced in matplotlib and live in `figures/static/`. Interactive components are Plotly or Folium HTML produced in `analysis/03_analyze.py` (the territorial map, the governorate heatmap) and `analysis/04_interactive.py` (the seven Plotly charts), and live in `interactive/`.
+
+Quarto embeds the interactive HTML via `<iframe class="interactive-embed">`. A static PNG fallback is retained in `figures/static/` for each interactive figure for use in the print/PDF version of the report and for archival.
+
+### 4.2 Palette and type
+
+| Role | Hex | Use |
+|---|---|---|
+| Olive deep | `#4A5D3A` | primary series, headings |
+| Olive mid | `#6B7F54` | secondary series |
+| Sage | `#9BAA85` | tertiary / low-emphasis |
+| Sage pale | `#C8D1B8` | IQR shading |
+| Terracotta | `#B95835` | events, emphasis, annotations |
+| Gold | `#C9A961` | rare-event markers |
+| Ink | `#2A2A26` | body text, axes |
+| Ink soft | `#595950` | captions, gridlines |
+| Bone | `#F5F0E6` | background, panels |
+| Rule | `#D9D2C0` | dividers |
+
+Type is **Cormorant Garamond** (serif) for narrative prose and chart titles; **Inter** (sans) for axis labels, tick labels, captions, and UI chrome; **JetBrains Mono** for inline code.
+
+### 4.3 Accessibility
+
+- Colour-encoded series are also distinguishable by line style / shape where possible. The two settler-population lines, for example, differ in fill, weight, and marker size as well as colour.
+- `<iframe>` titles (announced by screen readers) describe the chart being embedded.
+- All `<img-comparison-slider>` instances have `<img alt=…>` on both before- and after-frames.
+- Image-comparison sliders trap arrow-key focus when the divider handle is selected (provided by the `img-comparison-slider` web component).
+
+---
+
+## 5. Statistical choices
+
+- **Median proximity** is reported as the unweighted median of the per-event distance distribution. The 2-km and 5-km thresholds are reported as point estimates of the empirical CDF; they are not thresholds with statistical significance attached, only descriptive cut-offs.
+- **Pearson correlation** between settlement count and event count is reported across n = 11 governorates. The 95 % CI for r at this sample size is wide; the narrative reports r as an effect size only, not as a significance test.
+- **No causal inference** is claimed. Where the narrative says "tracks" or "co-locates," it is reporting an empirical association without assigning direction.
+
+---
+
+## 6. Limitations and known caveats
+
+1. **Peace Now under-counts East Jerusalem.** The settlement layer used here is Peace Now's "built-up settlement footprint" file. East Jerusalem neighbourhoods that Israel has annexed (and that the international community does not recognise as Israeli territory) are not exhaustively mapped in this file. The proximity histogram has a small bump near 4–4.5 km that is mostly East Jerusalem events whose nearest *mapped* settlement is on the far side of an unmapped neighbourhood.
+2. **OSM orchard tagging is uneven.** Mapped orchard polygons are denser in governorates with active OSM editing communities (Bethlehem, parts of Ramallah) than in others (Tubas, Salfit). The orchard area numbers should be read as a floor on real cultivation, not as a complete inventory.
+3. **ACLED civilian-targeting events under-report.** ACLED draws on news media and a network of local monitors; events that did not reach a reporting outlet are absent. UN OCHA's *Protection of Civilians* bulletin and B'Tselem's case files generally report higher counts than ACLED for the same period. The narrative uses ACLED because it is the only source with a single, machine-readable, point-coordinated record across the full 2016–2026 window.
+4. **2026 is partial.** The series ends in the most recent month for which ACLED has published aggregates. Where the narrative reports an annual count for 2026 in a chart, that bar is comparing a partial year to full years; the prose flags this where it matters.
+5. **Settler population for 2024 (East Jerusalem) is not yet published.** The 2024 row in `settler_population_annual.csv` carries a non-null West Bank figure (520k, Peace Now preliminary) and a null East Jerusalem cell. The 2025 figures (West Bank 529,704; East Jerusalem ~246,000) come from the Israeli CBS Population Registry release in early 2026.
+6. **The damage-keyword tags are indicative, not exhaustive.** See §3.3.
+7. **Image-comparison sliders are not GIS measurements.** The Part V village before/after pairs are interpretive aids drawn from Google Earth Pro's historical archive. They let the reader see the change. The numbers in the headline stats and proximity finding are computed from the structured Peace Now and ACLED layers, not from the satellite frames.
+
+---
+
+## 7. Reproducibility
+
+All analysis is in Python 3.12. The conda environment is fully specified in `environment.yml` (224 packages, hash-pinned). To reproduce the full pipeline from a clean checkout:
+
+```bash
+git clone https://github.com/dsan-5200/project-2026-35
+cd project-2026-35
+conda env create -f environment.yml
+conda activate olives
+python analysis/01_acquire.py      # download raw datasets
+python analysis/02_clean.py        # produce data/processed/*
+python analysis/03_analyze.py      # produce figures/static/* and interactive/heatmap.html / territorial_map.html
+python analysis/04_interactive.py  # produce interactive/*.html (the seven Plotly charts)
+quarto render                      # produce _site/
+```
+
+Stage 01 is the only stage that requires network access. Stages 02, 03, and 04 run from `data/raw/` and `data/processed/` and are deterministic.
+
+The site is deployed to [olives.myassin.georgetown.domains](https://olives.myassin.georgetown.domains/) by uploading `_site/` to the Georgetown Domains hosting account.
+
+---
+
+## 8. Repository layout
+
+```
+.
+├── analysis/                  cleaning + figure code (.py, no notebooks)
+│   ├── 01_acquire.py          dataset download
+│   ├── 02_clean.py            cleaning + spatial joins
+│   ├── 03_analyze.py          static figures + headline stats
+│   ├── 04_interactive.py      Plotly figures
+│   └── theme.py               matplotlib theme (palette, fonts, savefig)
+├── assets/                    images, og-card, slider photos
+├── data/
+│   ├── raw/                   not committed
+│   └── processed/             committed CSVs and GeoPackages
+├── figures/static/            committed PNG/SVG figures (fallback)
+├── interactive/               committed Plotly + Folium HTML
+├── _quarto.yml                site configuration
+├── theme.scss                 colour, type, layout
+├── styles.css                 grid + ornament rules
+├── index.qmd                  the narrative
+├── appendix.qmd               this page
+├── about.qmd                  author, AI usage log
+├── environment.yml            conda environment
+└── README.md                  build instructions
+```
+
+---
+
+## 9. AI usage log
+
+See [about.qmd](about.qmd#ai-usage-log) for the project's AI-assistance disclosure. In summary: cleaning code, figure code, layout SCSS, and prose drafts were developed iteratively with Claude Sonnet as a pair-programming assistant. All factual claims in the narrative are sourced to the cited primary references and are the author's responsibility.

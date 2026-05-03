@@ -321,13 +321,19 @@ def clean_territorial(wb_clip: gpd.GeoDataFrame) -> None:
     Both are written to data/processed/territorial.gpkg as separate layers,
     in EPSG:4326 so the Folium territorial map can consume them directly.
 
-    Note on Area B: the OCHA "Oslo Agreement" shapefile encodes A, C, H1, H2,
-    Nature Reserve, East Jerusalem, and No Man's Land explicitly, but does
-    *not* encode Area B as a polygon. Area B is the residual of the West
-    Bank that is none of those classes, so we derive it here by subtracting
-    the explicit polygons from the West Bank outline (the unioned governorate
-    boundaries) and writing the result back into the same `oslo_areas` layer
-    with class = "B".
+    Note on Areas A and B: the OCHA "Oslo Agreement" shapefile we use here
+    is the only public release available, and its `CLASS` field has values
+    A, C, H1, H2, Nature Reserve, "Israeli Declared East Jerusalem", and
+    "No Man's Land". There is no separate `B` value. Inspecting the polygons
+    shows that the OCHA "A" polygon is roughly 2,000 km^2, while the real
+    Oslo II Area A is ~1,000 km^2. The OCHA file is therefore grouping Area
+    A and Area B together as "areas of Palestinian administration", and
+    treating the rest as Area C. We carry that grouping through to the
+    territorial map below by relabelling the class in 03_analyze.py rather
+    than fabricating a separate B polygon (which a previous version of this
+    script tried to derive by subtraction and which produced a few tiny
+    slivers along boundaries, the result of source-data overlap rather
+    than real Area B geography).
     """
     print("[territorial] processing Oslo A/B/C and Separation Barrier ...")
     out_gpkg = PROC / "territorial.gpkg"
@@ -337,22 +343,6 @@ def clean_territorial(wb_clip: gpd.GeoDataFrame) -> None:
     if oslo_shps:
         oslo = gpd.read_file(oslo_shps[0]).to_crs(4326)
         oslo = oslo[["CLASS", "geometry"]].rename(columns={"CLASS": "class"})
-
-        # Derive Area B as: West Bank outline minus everything explicitly classed.
-        wb_outline = wb_clip.to_crs(4326).geometry.union_all()
-        explicit_union = oslo.geometry.union_all()
-        b_geom = wb_outline.difference(explicit_union)
-        # The geometric difference can leave tiny slivers along boundaries; we
-        # drop anything below 0.0001 deg² (~1 km² at this latitude) so the
-        # resulting Area B layer is a clean set of polygons rather than a
-        # cloud of fragments.
-        if b_geom.geom_type == "MultiPolygon":
-            keep = [p for p in b_geom.geoms if p.area > 1e-4]
-            from shapely.geometry import MultiPolygon
-            b_geom = MultiPolygon(keep) if keep else b_geom
-        b_row = gpd.GeoDataFrame({"class": ["B"], "geometry": [b_geom]}, crs=4326)
-        oslo = pd.concat([oslo, b_row], ignore_index=True)
-
         oslo.to_file(out_gpkg, layer="oslo_areas", driver="GPKG")
         counts = oslo["class"].value_counts().to_dict()
         print(f"  -> {out_gpkg.relative_to(REPO_ROOT)}::oslo_areas  ({len(oslo)} polygons)")

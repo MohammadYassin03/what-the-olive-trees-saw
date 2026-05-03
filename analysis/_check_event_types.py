@@ -1,0 +1,10 @@
+import pandas as pd
+df = pd.read_csv('data/processed/acled_monthly_westbank.csv')
+print('Fatalities per event_type, by year:')
+print(df.groupby(['year','event_type'])['fatalities'].sum().unstack(fill_value=0))
+print()
+print('Total fatalities by event_type:')
+print(df.groupby('event_type')['fatalities'].sum().sort_values(ascending=False))
+print()
+print('Event counts by event_type:')
+print(df.groupby('event_type')['events'].sum().sort_values(ascending=False))

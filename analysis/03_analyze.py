@@ -847,11 +847,13 @@ def fig_territorial_map() -> None:
         tiles="CartoDB positron", attr="© OpenStreetMap, © CartoDB",
     )
 
-    # ----- Areas A / B / C / etc. -------------------------------------------
+    # The OCHA file groups Areas A and B into a single polygon labelled "A"
+    # in the source. We carry that grouping through with an honest label,
+    # rather than fabricating a separate B layer from sliver geometries (see
+    # the docstring of clean_territorial in 02_clean.py for the reasoning).
     AREA_STYLES = {
-        "A":                                 {"color": "#4A5D3A", "fill": "#9BAA85", "label": "Area A: Palestinian civil + security"},
-        "B":                                 {"color": "#6B7F54", "fill": "#C8D1B8", "label": "Area B: Palestinian civil, Israeli security"},
-        "C":                                 {"color": "#B95835", "fill": "#D88562", "label": "Area C: full Israeli control"},
+        "A":                                 {"color": "#4A5D3A", "fill": "#9BAA85", "label": "Areas A and B: Palestinian administrative control"},
+        "C":                                 {"color": "#B95835", "fill": "#D88562", "label": "Area C: full Israeli civil and security control"},
         "H1":                                {"color": "#4A5D3A", "fill": "#9BAA85", "label": "Hebron H1: Palestinian control"},
         "H2":                                {"color": "#B95835", "fill": "#D88562", "label": "Hebron H2: Israeli control"},
         "Israeli Declared East Jerusalem":   {"color": "#7A3A22", "fill": "#A06043", "label": "East Jerusalem: Israeli annexed (not recognised internationally)"},
@@ -863,7 +865,7 @@ def fig_territorial_map() -> None:
         sub = oslo[oslo["class"] == cls]
         if sub.empty:
             continue
-        fg = folium.FeatureGroup(name=style["label"], show=cls in ("A", "B", "C"))
+        fg = folium.FeatureGroup(name=style["label"], show=cls in ("A", "C"))
         folium.GeoJson(
             sub.__geo_interface__,
             style_function=lambda _f, s=style: {

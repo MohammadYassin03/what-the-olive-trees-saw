@@ -289,19 +289,23 @@ def fig_fatalities_by_event_type() -> None:
     df = _load_acled()
     pivot = (df.groupby(["year", "event_type"])["fatalities"]
              .sum().unstack(fill_value=0))
-    order = [c for c in ["demonstrations", "political_violence", "civilian_targeting"]
+    # We exclude the demonstrations band: ACLED records 0 fatalities under
+    # protests/riots for the West Bank in this period because incidents that
+    # begin as stone-throwing demonstrations and end with IDF live fire are
+    # re-coded by ACLED as Battles (and thus land in political_violence).
+    # A flat-zero band would only add visual noise; the prose under the
+    # chart calls this out explicitly.
+    order = [c for c in ["political_violence", "civilian_targeting"]
              if c in pivot.columns]
     pivot = pivot[order]
 
     label_map = {
         "civilian_targeting": "Civilian targeting",
         "political_violence": "Political violence",
-        "demonstrations":     "Demonstrations",
     }
     color_map = {
         "civilian_targeting": PALETTE["terracotta"],
         "political_violence": PALETTE["olive_deep"],
-        "demonstrations":     PALETTE["sage"],
     }
 
     years = pivot.index.tolist()
@@ -316,7 +320,7 @@ def fig_fatalities_by_event_type() -> None:
         ))
     fig.update_layout(**_base_layout(
         "Recorded West Bank fatalities by event type",
-        "Stacked annual fatalities across ACLED's three event-type buckets.",
+        "Stacked annual fatalities. ACLED's third bucket (Demonstrations) carries zero fatalities in this period; see prose below.",
         height=540,
     ))
     fig.update_layout(annotations=[_attribution(

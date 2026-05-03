@@ -125,6 +125,12 @@ These are floors, not ceilings. An attack that burns a grove without using the w
 
 The Folium territorial map (`interactive/territorial_map.html`) inlines its GeoJSON into the rendered HTML. Without simplification the file weighed 9 MB, which is too heavy for an in-page embed. We apply `geometry.simplify(tolerance=0.0003, preserve_topology=True)` (≈ 30 m at this latitude) to the Oslo, barrier, and settlement layers, and 0.0008 (≈ 80 m) to the governorate boundaries. The visual effect is indistinguishable at the West Bank zoom levels the embed targets, and the rendered HTML drops to 1.3 MB.
 
+### 3.5 Areas A and B are grouped in the source data
+
+The OCHA "Oslo Agreement" shapefile we use is the only public release available, and its `CLASS` field has values A, C, H1, H2, "Nature Reserve", "Israeli Declared East Jerusalem", and "No Man's Land". There is no separate `B` value. Inspecting the polygons confirms that the OCHA "A" polygon covers approximately 2,000 km², while the canonical Oslo II Area A is closer to 1,000 km² and Area B is another ~1,250 km². The OCHA file is therefore grouping Areas A and B together as one polygon labelled "A", and assigning the rest of the West Bank to "C".
+
+An earlier version of this script tried to recover Area B by computing `(West Bank outline) − (A ∪ C ∪ H1 ∪ H2 ∪ Nature Reserve ∪ East Jerusalem ∪ No Man's Land)` and adding the result back as a synthetic `B` polygon. That approach produced only ~2 km² of thin sliver geometry along boundaries (the result of source-polygon overlap, not real Area B geography), which rendered on the map as broken-looking lines. We removed that step and now carry the source's grouping through honestly, labelling the layer "Areas A and B (Palestinian administrative control)" in the territorial map. If a separate Area B layer becomes available from a different source (B'Tselem, Peace Now, or a future OCHA release), it can be slotted into `oslo_areas` with `class = "B"` and the existing `AREA_STYLES` dictionary in `03_analyze.py` will pick it up.
+
 ---
 
 ## 4. Figures

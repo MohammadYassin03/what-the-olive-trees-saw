@@ -46,9 +46,12 @@ $h3-font-size: 1.5rem;
 .quarto-title-block { display: none; }
 
 body {
-  font-family: $font-family-serif;
+  // Body prose uses Inter (the same sans-serif as the figure-captions). The
+  // headings, the dropcap, the deck, and the pull-quotes still use Cormorant
+  // Garamond so the title and literary openers keep their character.
+  font-family: $font-family-sans-serif;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.6;
   color: $ink;
 }
 
@@ -168,6 +171,16 @@ figcaption, .figure-caption {
   border-bottom: 1px solid $rule;
   padding: 0.75rem 0;
   margin: 2rem 0 3rem 0;
+}
+// Data-source line inside the byline. Renders smaller and lighter than the
+// author + institution line, so the eye reads "Mohammad Yassin · Georgetown"
+// first and the source list as a footnote-style attribution underneath.
+.byline-data {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
 }
 
 // Dropcap on first paragraph of main narrative
@@ -320,10 +333,9 @@ hr {
   border-color: rgba(245, 240, 230, 0.25);
   margin: 0;
   flex-shrink: 0;
-  // Base display size is 95% of the smaller of (viewport width, viewport
-  // height-times-aspect). The JS multiplies these via inline style for zoom.
-  width: var(--display-w, min(95vw, calc(85vh * 1.479)));
-  height: var(--display-h, min(calc(85vh), calc(95vw / 1.479)));
+  // Width and height are set inline (in px) by the modal JS so the
+  // <img-comparison-slider> ResizeObserver fires and both slotted images
+  // resize together. Don't override them here.
 }
 .village-slider-overlay .overlay-controls {
   position: absolute;
@@ -497,8 +509,7 @@ hr {
   margin: 0 0 8rem 0;
   &:first-child { margin-top: 0; }
   &:last-child  { margin-bottom: 2rem; }
-  font-family: $font-family-serif;
-  line-height: 1.7;
+  // Inherits the body's Inter / line-height: 1.6 from the body rule.
 }
 .scrolly-prose .village-slider {
   margin: 1.25rem 0 0.4rem 0;

@@ -115,8 +115,8 @@
     transition: fill-opacity 0.2s ease;
   }
   .gov-circle:hover, .gov-circle.selected { fill-opacity: 0.9; fill: var(--terracotta); }
-  .bar { fill: var(--olive-deep); }
-  .bar.highlight { fill: var(--terracotta); }
+  /* Bar fill is set per-datum in JS using a sequential terracotta scale,
+     so darker = more incidents that year. No separate highlight class. */
   .axis text { font-size: 10px; fill: var(--ink-soft); }
   .axis path, .axis line { stroke: var(--rule); }
 </style>
@@ -519,6 +519,17 @@ function drawChart(series) {
     .attr("transform", `translate(${M.left},0)`)
     .call(d3.axisLeft(y).ticks(4).tickSizeOuter(0));
 
+  // Sequential terracotta scale: pale at zero, full terracotta at half-max,
+  // darker terracotta at peak. The intensity itself encodes magnitude, so
+  // there is no separate highlight on the peak year. Using a red gradient
+  // (rather than a green/red contrast) keeps this chart's palette visually
+  // separate from the green map circles on the left, so a reader does not
+  // misread the colour split as "this governorate vs the others".
+  const colorScale = d3.scaleLinear()
+    .domain([0, yMax / 2, yMax])
+    .range(["#F1D8C9", "#B95835", "#7A3A22"])
+    .clamp(true);
+
   svg.selectAll(".bar")
     .data(series)
     .join("rect")
@@ -526,13 +537,8 @@ function drawChart(series) {
       .attr("x", d => x(d.year))
       .attr("y", d => y(d.n))
       .attr("width", x.bandwidth())
-      .attr("height", d => (H - M.bottom) - y(d.n));
-
-  // Peak-year highlight
-  const peak = series.reduce((a, b) => (b.n > a.n ? b : a), series[0]);
-  svg.selectAll(".bar")
-    .filter(d => d.year === peak.year && d.n > 0)
-    .classed("highlight", true);
+      .attr("height", d => (H - M.bottom) - y(d.n))
+      .attr("fill", d => colorScale(d.n));
 }
 
 function drawAllGovernoratesChart(feed) {

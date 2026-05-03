@@ -27,7 +27,8 @@ A data-driven account of settlement expansion and its environmental and human im
 :::
 
 ::: {.byline}
-By Mohammad Yassin · Georgetown University · Data: ACLED · OpenStreetMap · UN OCHA oPt admin boundaries
+By Mohammad Yassin · Georgetown University<br>
+[Data: ACLED · OpenStreetMap · UN OCHA oPt admin boundaries]{.byline-data}
 :::
 
 ::: {.dropcap}
@@ -58,7 +59,7 @@ This is no longer something the government tolerates from the margins. It is som
 "This reality finally buries the idea of a Palestinian state, because there is nothing to recognise and no one to recognise. Anyone in the world who tries today to recognise a Palestinian state will receive an answer from us on the ground." Bezalel Smotrich, August 14, 2025[^smotrich-e1]
 :::
 
-The strategy is the older one. Build first, argue later. Make the geography decide. What is new is that the government, instead of denying the strategy or distancing itself from it, now claims it.
+The strategy is not unfamiliar: build first, argue later. Make the geography decide. What is new is that the government, instead of denying the strategy or distancing itself from it, now claims it.
 
 The territorial picture is layered. The 1995 Oslo II agreement divided the West Bank into Areas A, B, and C. Area C, which is roughly sixty per cent of the territory and where almost all settlements sit, remains under full Israeli civil and security control. The Separation Barrier, where it dips east of the Green Line, encloses settlement blocs on the Israeli side. The map below stacks those layers (Oslo's Areas A/B/C, the barrier alignment as of 2018, and Peace Now's mapped Israeli built-up settlements) on a single base. Toggle layers using the panel in the top right.
 
@@ -72,16 +73,16 @@ The territorial picture is layered. The 1995 Oslo II agreement divided the West 
 ```
 
 ::: {.figure-caption}
-Areas A (full Palestinian control), B (Palestinian civil + Israeli security), and C (full Israeli control) follow the 1995 Oslo II accord. East Jerusalem is shown as Israeli-annexed, a status not recognised internationally. Barrier alignment is OCHA's January 2018 release. The routed line, where it dips east of the Green Line, gathers settlement blocs onto the Israeli side. Settlement footprints are Peace Now's mapped built-up areas. International Crisis Group maintains a similar visual explainer drawn from the same sources.[^crisis-group]
+A note on the area labels: the OCHA "Oslo Agreement" shapefile we use here groups Areas A and B together as a single layer of Palestinian administrative control. There is no public OCHA layer that breaks them apart. The map below therefore shows two filled classes — "Areas A and B" (Palestinian administration) and "Area C" (full Israeli civil and security control) — instead of the canonical three. East Jerusalem is shown as Israeli-annexed, a status not recognised internationally. Barrier alignment is OCHA's January 2018 release. The routed line, where it dips east of the Green Line, gathers settlement blocs onto the Israeli side. Settlement footprints are Peace Now's mapped built-up areas. International Crisis Group maintains a similar visual explainer drawn from the same sources.[^crisis-group]
 :::
 
 The most consistently documented expression of this view, in both published settler-movement statements and the violence catalogued by Israeli human-rights monitors, is the goal of making Palestinian life in Area C difficult enough that families leave on their own.[^btselem-violence] The next part measures how far that project has progressed, in people and in dunums.
 
 ### The grove
 
-If the hill is the project, the grove is what it presses against. To Palestinians, the olive tree is not only a crop. It is a piece of memory you can touch. A tree planted by a great-grandfather is still alive when his great-grandchildren prune it. A grove handed down through five generations is, materially, the same grove. Mahmoud Darwish, the poet most read at Palestinian funerals and weddings, wrote of olive trees as kin.[^darwish] The tree appears on the Palestinian state seal, in folk songs, in the embroidery of every grandmother's dress. It is an emblem of staying.
+If the hill is the project, the grove is what it presses against. To Palestinians, the olive tree is not only a crop. It is a piece of memory you can touch. A tree planted by a great-grandfather is still alive when his great-grandchildren prune it. A grove handed down through five generations is, materially, the same grove. Mahmoud Darwish, the poet most recited at Palestinian funerals and weddings, wrote of olive trees as kin.[^darwish] The tree appears on the Palestinian state seal, in folk songs, in the embroidery of every grandmother's dress. It is an emblem of staying.
 
-The economic record matches the symbolic one. Olives are the single largest crop in Palestinian agriculture by area, covering roughly half of all cultivated land in the West Bank.[^pcbs-area] A healthy tree yields three to fifteen kilograms of fruit a year, a few litres of oil, pressed once in late autumn and stored in tin for the months that follow.[^yield] Between eighty and one hundred thousand families draw some portion of their income from the grove.[^oecd-families] In Arabic, the tree is *zaytun*. The oil is *zayt*. The word for olive oil and the word for oil of any kind are the same word.
+The economic record matches the symbolic one. Olives are the single largest crop in Palestinian agriculture by area, covering roughly half of all cultivated land in the West Bank.[^pcbs-area] A healthy tree yields three to fifteen kilograms of fruit a year, a few litres of oil, pressed once in late autumn and stored in tin for the months that follow.[^yield] Between eighty to one hundred thousand families draw some portion of their income from the grove.[^oecd-families] In Arabic, the tree is *zaytun*. The oil is *zayt*. The word for olive oil and the word for oil of any kind are the same word.
 
 Olive cultivation here predates the modern state by millennia.[^olive-history] The grove you see today is, in many cases, the same grove our great-grandparents tended. Olive trees can live for hundreds of years, which means a grove standing now is the same physical grove that stood a generation, two generations, or four generations ago, on the same patch of hillside. That long life is part of why the changes traced in this piece are visible at all. The tree is the fixed point against which the change is measured. Without its age, there is no "before" to compare the "after" against.
 
@@ -200,7 +201,7 @@ The ACLED record at the heart of this piece counts events. It does not show them
 The clearest single image of what one of these events leaves behind is a grove. The slider below sits over a stretch of agricultural land near Al-Mughayyir before and after a settler arson attack documented by Najwan Simri on the ground. Pull the handle to compare. The "before" frame is the grove as the family that owned it had pruned and harvested it. The "after" frame is the same ground hours later.
 
 ```{=html}
-<img-comparison-slider class="village-slider" hover="false" style="aspect-ratio: 939 / 477;">
+<img-comparison-slider class="village-slider" hover="false" data-no-expand="true" style="aspect-ratio: 939 / 477;">
   <img slot="first"  src="assets/img/mughayyir-burn-before.jpg" alt="Agricultural land near Al-Mughayyir before a settler arson attack"/>
   <img slot="second" src="assets/img/mughayyir-burn-after.jpg"  alt="The same ground after the attack, burned"/>
 </img-comparison-slider>
@@ -465,7 +466,9 @@ The "Other Israeli (civilians, unidentified)" bar is worth flagging. ACLED only 
 Recorded West Bank fatalities, 2016–2026, split by ACLED event type. The terracotta civilian-targeting band was a quiet sliver before 2021. Hover any year for the band-by-band fatalities split.
 :::
 
-ACLED splits West Bank events into broad event-type buckets. *Civilian targeting* covers attacks on Palestinians who are not active combatants: homes torched, individuals assaulted, vehicles burned, livestock killed, the kinds of events the rest of this piece focuses on. *Political violence* covers armed engagements: military raids, clashes between Israeli forces and Palestinian armed groups, explosions and remote violence. *Demonstrations* covers protests and riots. The terracotta band is the slice of West Bank fatalities that ACLED specifically codes as the targeting of civilians.
+ACLED splits West Bank events into broad event-type buckets. *Civilian targeting* covers attacks on Palestinians who are not active combatants: homes torched, individuals assaulted, vehicles burned, livestock killed, the kinds of events the rest of this piece focuses on. *Political violence* covers what ACLED's codebook calls "Battles" and "Explosions/Remote violence", military raids, exchanges of fire, airstrikes, and IEDs. The terracotta band is the slice of West Bank fatalities that ACLED specifically codes as the targeting of civilians.
+
+The label *political violence* needs a caveat. In the West Bank context it carries a misleading symmetry. ACLED's "Battle" sub-event type is defined as a violent interaction between two organised armed groups, but the rule its coders apply on the ground is responsive: once Israeli forces use live ammunition against a Palestinian crowd, the crowd is treated as an "armed group" for classification purposes, even when its weapons are stones.[^acled-battles] Many fatalities recorded as Battles in this dataset are Palestinians, often youth, killed during stone-throwing confrontations near Israeli military checkpoints, settler bypass roads, or village entrances. ACLED's third bucket, *Demonstrations* (Protests and Riots), would in principle carry these incidents, but it records zero fatalities in our period because once live fire enters the picture ACLED re-codes the event from a Riot to a Battle. Read the political-violence band as "fatalities in confrontations involving Israeli forces", not as "casualties of two-sided armed combat".
 
 ```{python}
 #| echo: false
@@ -700,6 +703,10 @@ At-Tuwani is the small village at the lower-right of the frame. The planted sett
   function addExpandButton(slider) {
     if (slider.closest(".village-slider-overlay")) return;
     if (slider.parentNode && slider.parentNode.classList.contains("village-slider-wrap")) return;
+    // Sliders with data-no-expand opt out of the fullscreen modal. Used for
+    // the burn before/after in Part III where the imagery is graphic enough
+    // that we do not want to invite a closer look.
+    if (slider.dataset && slider.dataset.noExpand === "true") return;
 
     // Wrap the slider in a div, then add the button as a sibling. The button
     // cannot live inside `<img-comparison-slider>` because that custom
@@ -751,17 +758,38 @@ At-Tuwani is the small village at the lower-right of the frame. The planted sett
     document.body.appendChild(overlay);
     document.body.style.overflow = "hidden";
 
+    // The slider's aspect ratio matches its source imagery (1529 x 1035 ≈ 1.477).
+    const ASPECT = 1529 / 1035;
+
     let zoom = 1.0;
     function applyZoom() {
-      cloned.style.setProperty("--display-w",
-        `min(${95 * zoom}vw, calc(${85 * zoom}vh * 1.479))`);
-      cloned.style.setProperty("--display-h",
-        `min(${85 * zoom}vh, calc(${95 * zoom}vw / 1.479))`);
+      // Compute the largest slider that fits 95% of viewport width and
+      // 85% of viewport height while keeping the source aspect ratio.
+      const availW = 0.95 * window.innerWidth;
+      const availH = 0.85 * window.innerHeight;
+      let baseW, baseH;
+      if (availW / availH > ASPECT) {
+        baseH = availH;
+        baseW = baseH * ASPECT;
+      } else {
+        baseW = availW;
+        baseH = baseW / ASPECT;
+      }
+      // Setting width/height as inline pixel values (instead of via CSS
+      // variables) makes the layout engine fire a real resize event on
+      // the slider host, which triggers img-comparison-slider's internal
+      // ResizeObserver and keeps both slotted images in sync.
+      cloned.style.width = (baseW * zoom) + "px";
+      cloned.style.height = (baseH * zoom) + "px";
     }
     function setZoom(z) {
       zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
       applyZoom();
     }
+    // Initial sizing and re-sizing when the viewport changes.
+    applyZoom();
+    const onResize = () => applyZoom();
+    window.addEventListener("resize", onResize);
 
     controls.addEventListener("click", (e) => {
       const action = e.target.dataset.action;
@@ -775,6 +803,7 @@ At-Tuwani is the small village at the lower-right of the frame. The planted sett
       overlay.remove();
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
     }
 
     function onKey(e) {
@@ -810,7 +839,7 @@ What the records say, when read together, is direct enough. The Israeli settler 
 
 That is what the aggregates say. What the four hillsides in the previous part show is that the aggregates have an address, and a name, and a tree.
 
-I started this project in October 2023, the same month that absorbed the world's attention. The cameras went somewhere else. The trees, slower than cameras and older than states, kept watching.
+I have been thinking about a project like this since October 2023, the same month that absorbed the world's attention. I waited until I felt I had the skills and the data fluency to do the case justice, and then I built it. The cameras went somewhere else. The trees, slower than cameras and older than states, kept watching.
 
 ::: {.section-ornament}
 :::
@@ -888,9 +917,11 @@ Data sources are summarized in the [technical appendix](appendix.qmd).
 
 [^settlements-history]: Settlement layer from Peace Now via HDX (`state-of-palestine-settlements`). For institutional history of West Bank settlement growth, see the United Nations Office for the Coordination of Humanitarian Affairs (OCHA) or the Foundation for Middle East Peace.
 
-[^settler-pop-source]: Annual settler-population figures compiled from Peace Now's *Settlements Watch* population page (peacenow.org.il/en/settlements-watch/settlements-data/population), the Foundation for Middle East Peace *Settlement Report* archive (fmep.org/resource/settlement-report/), and the Israeli Central Bureau of Statistics *Statistical Abstract of Israel*, "Localities and Population." Outpost residents (~20–30,000 in 2023) are excluded from the West Bank figure as Israeli CBS does not count them; East Jerusalem figures are extracted by Peace Now and FMEP from Israeli neighbourhood-level census data and not separately published by CBS as "settlers." Pre-1990 numbers vary by ~10–20% across sources; the values shown follow the Peace Now/CBS retrofit. The 2024 West Bank figure is preliminary and is likely to be revised when Peace Now publishes its annual update.
+[^settler-pop-source]: Annual settler-population figures compiled from Peace Now's *Settlements Watch* population page (peacenow.org.il/en/settlements-watch/settlements-data/population), the Foundation for Middle East Peace *Settlement Report* archive (fmep.org/resource/settlement-report/), and the Israeli Central Bureau of Statistics *Statistical Abstract of Israel*, "Localities and Population." The 2025 West Bank figure (529,704) is from the CBS Population Registry release of early 2026, also reproduced in Wikipedia's *Population statistics for Israeli settlements in the West Bank* and in the Foundation for Middle East Peace's March 2026 *Settlement and Annexation Report*. Outpost residents (~20,000 to 30,000 in 2023) are excluded from the West Bank figure as Israeli CBS does not count them; East Jerusalem figures are extracted by Peace Now and FMEP from Israeli neighbourhood-level census data and not separately published by CBS as "settlers." Pre-1990 numbers vary by 10 to 20 percent across sources; the values shown follow the Peace Now and CBS retrofit. The 2024 West Bank value (520,000) is Peace Now's preliminary publication; East Jerusalem 2024 has not been separately published.
 
 [^livestock-source]: Livestock and agricultural-property damage are tracked in the violence-monitoring records of B'Tselem (btselem.org) and Yesh Din (yesh-din.org). ACLED's structured fields record events and fatalities; non-fatal damage descriptions appear only in event narratives.
+
+[^acled-battles]: ACLED's *Codebook* (acleddata.com/methodology/acled-codebook) defines a *Battle* as "a violent interaction between two organized armed groups at a particular time and location" and a *Riot* as a "violent event where demonstrators or mobs of three or more engage in violent or destructive acts, including but not limited to physical fights, rock throwing, property destruction, etc." In practice, when Israeli forces respond to a stone-throwing crowd with live ammunition, the resulting fatality is typically coded as a Battle (with the rioting crowd treated as the second "armed group"), not as a Riot fatality. This is why the Demonstrations band in the chart above is empty for the West Bank in this period, and why the Political Violence band absorbs incidents that on the ground are asymmetric, often deadly responses to unarmed or stone-armed Palestinian protesters. UN OCHA's *Protection of Civilians* weekly reports (ochaopt.org/data/casualties) and B'Tselem's *Statistics* section use a different classification that separates these incidents and reports them as killings during demonstrations and clashes with Israeli forces; the gap between the two taxonomies is documented in OCHA's methodology pages.
 
 [^burin-source]: For the long record of harvest-time settler violence around Burin and the surrounding Nablus-area settlements (Bracha, Yitzhar, and outposts including Givat Ronen), see B'Tselem, "Settler Violence = State Violence" reporting (btselem.org/topic/settler_violence) and UN OCHA's *Protection of Civilians* bulletins. Israeli press coverage in *Haaretz* and +972 Magazine has documented the same pattern over multiple harvest seasons.
 
@@ -900,7 +931,7 @@ Data sources are summarized in the [technical appendix](appendix.qmd).
 
 [^turmus-2023]: The June 2023 attack on Turmus Ayya, including the killing of a US citizen and the burning of homes and vehicles, was reported by the US State Department, the Associated Press, *The Washington Post*, *Haaretz*, and B'Tselem. See also UN OCHA's *Protection of Civilians* bulletin for that reporting period.
 
-[^tuwani-source]: On At-Tuwani and the long-running international accompaniment presence (Operation Dove and Christian Peacemaker Teams / Community Peacemaker Teams), see operationdove.org and cpt.org. The school-escort arrangement is also documented by B'Tselem and UN OCHA in their South Hebron Hills reporting.
+[^tuwani-source]: On At-Tuwani and the long-running international accompaniment presence (Operazione Colomba / Operation Dove, and Community Peacemaker Teams, formerly Christian Peacemaker Teams), see operazionecolomba.it and cpt.org. The school-escort arrangement is also documented by B'Tselem and UN OCHA in their South Hebron Hills reporting.
 
 [^mughayyir-source]: For Al-Mughayyir's geography and the cluster of surrounding settlements and outposts (Adei Ad, Esh Kodesh, Ahiya, Geulat Tzion), see B'Tselem (btselem.org) and Yesh Din (yesh-din.org) outpost-tracking reports, as well as Peace Now's "Settlement Watch" outpost map. The accelerated outpost growth in the area after 2010 is documented in Peace Now's annual reports.
 
@@ -914,7 +945,7 @@ Data sources are summarized in the [technical appendix](appendix.qmd).
 
 [^crisis-group]: International Crisis Group, "Israeli Settlements in the Occupied West Bank", a visual explainer mapping settlements, outposts, Areas A/B/C, settler bypass roads, and the Separation Barrier. Available at crisisgroup.org/visual-explainers/israeli-settlements/. The territorial layers cited in this section (Areas A/B/C, bypass roads, the barrier) follow that explainer's geography; the data layers used in this piece sit on top of it.
 
-[^post-oct7-acceleration]: For the post-October 2023 acceleration in West Bank settlement activity (housing-unit advancements, outpost legalizations, and the May 2024 declaration of approximately 8,000 dunums of "state land" in the Jordan Valley, the largest single such declaration since the Oslo accords), see Peace Now's *Settlement Watch* annual reports for 2023 and 2024 (peacenow.org.il/en/settlements-watch), the Foundation for Middle East Peace's *Settlement Report* archive (fmep.org), and contemporaneous reporting in *Haaretz*, *The New York Times*, and *The Washington Post*.
+[^post-oct7-acceleration]: For the post-October 2023 acceleration in West Bank settlement activity (housing-unit advancements, outpost legalizations, and a series of "state land" declarations in 2024 totalling roughly 23,700 dunums, including a March 20 declaration of 8,000 dunums and a June 25 declaration of 12,700 dunums in the Jordan Valley, the latter the largest single declaration since the Oslo accords), see Peace Now's *Settlement Watch* page on the June 2024 declaration (peacenow.org.il/en/state-land-declaration-12000-dunams) and its annual reports for 2023 and 2024, the Foundation for Middle East Peace's *Settlement Report* archive (fmep.org), and contemporaneous reporting in *The Times of Israel* ("Israel announces largest appropriation of state land in West Bank since Oslo Accords"), *Haaretz*, *The New York Times*, and *The Washington Post*.
 
 [^legality]: The illegality of Israeli settlements under international law is the position of the International Court of Justice (advisory opinion of 9 July 2004 on the *Wall* case, and the 19 July 2024 advisory opinion on the *Legal Consequences arising from the Policies and Practices of Israel in the Occupied Palestinian Territory, including East Jerusalem*), every UN Security Council resolution to address the settlements (notably resolutions 446, 452, 465, and 2334), and the European Union. The Fourth Geneva Convention (Article 49, sixth paragraph) prohibits an occupying power from transferring its civilian population into occupied territory.
 
@@ -922,6 +953,6 @@ Data sources are summarized in the [technical appendix](appendix.qmd).
 
 [^price-tag]: On "price tag" attacks (*tag mechir*) and their attribution to Hilltop Youth-affiliated networks, see B'Tselem's reporting on settler violence (btselem.org/topic/settler_violence) and Yesh Din's *Standing Idly By* series on Israeli law-enforcement response. The Israeli internal security service Shin Bet has at multiple points designated specific Hilltop Youth networks (notably the "Revolt" network) as terrorist organisations under Israeli law; see contemporaneous reporting in *Haaretz* and *Times of Israel*.
 
-[^ocha-postoct7]: UN OCHA's *Protection of Civilians* monthly and weekly bulletins for the period from October 2023 onward record the highest sustained monthly counts of settler attacks on Palestinian communities in the agency's twenty-year monitoring record; see ochaopt.org/poc and OCHA's *Humanitarian Situation Update* bulletins on the West Bank.
+[^ocha-postoct7]: UN OCHA's *Protection of Civilians* monthly and weekly bulletins for the period from October 2023 onward record the highest sustained monthly counts of settler attacks on Palestinian communities in the agency's twenty-year monitoring record; see ochaopt.org/data/casualties and OCHA's *Humanitarian Situation Update* bulletins on the West Bank.
 
 [^figures-released]: On the easing of legal restrictions for individuals affiliated with violent settler networks following October 2023, see reporting in *Haaretz*, *The Washington Post*, and *+972 Magazine*. The US Treasury Department's December 2023–2024 sanctions designations targeting specific West Bank settler figures and outposts identify several of the same individuals.

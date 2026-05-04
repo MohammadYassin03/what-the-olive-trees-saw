@@ -34,10 +34,10 @@ The questions are descriptive, not causal. We do not attempt to attribute indivi
 
 | Source | Variable | Coverage | Access |
 |---|---|---|---|
-| ACLED via HDX | Civilian-targeting events, fatalities, perpetrator | West Bank, 2016–2026 | [data.humdata.org](https://data.humdata.org/dataset/acled-data-for-state-of-palestine) |
-| Peace Now via HDX | Built-up settlement boundary polygons | Current, 174 settlements | [data.humdata.org](https://data.humdata.org/dataset/state-of-palestine-settlements) |
+| ACLED via HDX | Civilian-targeting events, fatalities, perpetrator | West Bank, 2016–2026 | [data.humdata.org/dataset/palestine-acled-conflict-data](https://data.humdata.org/dataset/palestine-acled-conflict-data) |
+| Peace Now via HDX (mirror of [peacenow.org.il](https://peacenow.org.il/en/settlements-watch/settlements-data)) | Built-up settlement boundary polygons | Current, 174 settlements | [data.humdata.org/dataset/state-of-palestine-settlements](https://data.humdata.org/dataset/state-of-palestine-settlements) |
 | Israeli CBS / Peace Now / FMEP | Annual settler population (West Bank, East Jerusalem) | 1972–2025 | Compiled in `data/processed/settler_population_annual.csv` |
-| UN OCHA oPt via HDX | Areas A / B / C polygons (Oslo II, 1995); Separation Barrier alignment (Jan 2018) | Current | [data.humdata.org](https://data.humdata.org/dataset/state-of-palestine-oslo-agreement) |
+| UN OCHA oPt via HDX | Areas A / B / C polygons (Oslo II, 1995); Separation Barrier alignment (Jan 2018) | Current | [data.humdata.org/dataset/state-of-palestine-other-0-0-0-0-0](https://data.humdata.org/dataset/state-of-palestine-other-0-0-0-0-0) |
 | UN OCHA oPt via HDX | Governorate (admin level 2) boundaries | Current | [data.humdata.org](https://data.humdata.org/dataset/cod-ab-pse) |
 | OpenStreetMap (Geofabrik) | `landuse=orchard` polygons | Current | [Geofabrik Palestine extract](https://download.geofabrik.de/asia/palestine.html) |
 
@@ -45,6 +45,10 @@ Raw downloads are not committed to the repository. They are reconstructed by re-
 
 ::: {.callout-note}
 ACLED's coverage of the West Bank is comprehensive from 2016 onward. Earlier years are sparse because ACLED's MENA expansion (then-named ACLED-Asia) reached the territory in 2015. The narrative reports 2016 as the series start for that reason.
+:::
+
+::: {.callout-note}
+HDX page reliability. The HDX dataset pages above can return a "dataset not found" message in the public web interface even when the underlying file is still served (we have observed this on `state-of-palestine-settlements`, where the API returns the file normally and Peace Now also publishes the same file on its own site). If a link returns the message, fall back to the data provider's primary distribution: Peace Now's *Settlements Watch* page for the settlement layer, ACLED's own dashboards for the conflict events, and OCHA oPt's *Datasets and Mapping Tools* page for the Oslo and barrier files.
 :::
 
 ---

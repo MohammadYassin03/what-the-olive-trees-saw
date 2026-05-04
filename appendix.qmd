@@ -39,7 +39,7 @@ The questions are descriptive, not causal. We do not attempt to attribute indivi
 | Israeli CBS / Peace Now / FMEP | Annual settler population (West Bank, East Jerusalem) | 1972–2025 | Compiled in `data/processed/settler_population_annual.csv` |
 | UN OCHA oPt via HDX | Areas A / B / C polygons (Oslo II, 1995); Separation Barrier alignment (Jan 2018) | Current | [data.humdata.org/dataset/state-of-palestine-other-0-0-0-0-0](https://data.humdata.org/dataset/state-of-palestine-other-0-0-0-0-0) |
 | UN OCHA oPt via HDX | Governorate (admin level 2) boundaries | Current | [data.humdata.org](https://data.humdata.org/dataset/cod-ab-pse) |
-| OpenStreetMap (Geofabrik) | `landuse=orchard` polygons | Current | [Geofabrik Palestine extract](https://download.geofabrik.de/asia/palestine.html) |
+| OpenStreetMap (Geofabrik) | `landuse=orchard` polygons | Current | [Geofabrik Israel and Palestine extract](https://download.geofabrik.de/asia/israel-and-palestine.html) |
 
 Raw downloads are not committed to the repository. They are reconstructed by re-running `analysis/01_acquire.py`. Processed CSVs and GeoPackages used by the narrative are committed under `data/processed/`.
 

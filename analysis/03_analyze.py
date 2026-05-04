@@ -261,7 +261,7 @@ def fig_seasonal_signature() -> None:
 def fig_orchard_area_by_governorate() -> None:
     print("[fig3] orchard area by governorate ...")
     df = _load_orchards().sort_values("area_dunums")
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6.5))
     ax.barh(df["governorate"], df["area_dunums"],
             color=PALETTE["olive_deep"], zorder=3)
     for i, (g, a) in enumerate(zip(df["governorate"], df["area_dunums"])):
@@ -269,12 +269,14 @@ def fig_orchard_area_by_governorate() -> None:
                 fontsize=9, color=PALETTE["ink_soft"])
     ax.set_title("Mapped orchard area by governorate",
                  loc="left", pad=18, fontsize=16, fontweight="600")
-    ax.set_xlabel("Dunums (1 dunum = 1,000 m²)")
+    ax.set_xlabel("Dunums (1 dunum = 1,000 m²)", labelpad=10)
     ax.set_ylabel("")
     ax.grid(False, axis="y")
     annotate_source(ax, "Source: OSM landuse=orchard polygons, clipped to West Bank.\n"
                         "Under-counts in governorates where OSM orchard tagging is sparse (see appendix).")
-    plt.tight_layout()
+    # Reserve bottom 9% of the figure for the source citation so it does not
+    # collide with the x-axis label.
+    plt.tight_layout(rect=[0, 0.09, 1, 1])
     savefig_pub(fig, str(FIG_STATIC / "orchard_area_by_governorate"))
     plt.close(fig)
     print("  -> figures/static/orchard_area_by_governorate.png,svg")
@@ -955,21 +957,26 @@ def fig_territorial_map() -> None:
         ).add_to(fg_vil)
     fg_vil.add_to(m)
 
-    folium.LayerControl(collapsed=False, position="topright").add_to(m)
+    # Layer control collapsed by default. The expanded panel covered the
+    # whole map on phones and crowded the desktop; collapsed renders as a
+    # small icon in the top-right that the reader clicks to expand.
+    folium.LayerControl(collapsed=True, position="topright").add_to(m)
 
-    # Top-left legend / source attribution
+    # Info box. Moved to bottom-right (away from Leaflet's bottom-left scale
+    # bar) and constrained to a narrower width so it does not eat the map.
     legend_html = """
     <div style="
-      position: fixed; bottom: 14px; left: 14px; z-index: 9999;
+      position: fixed; bottom: 14px; right: 14px; z-index: 9999;
       background: rgba(245, 240, 230, 0.95);
       border: 1px solid #D9D2C0; padding: 10px 12px; border-radius: 2px;
       font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem;
-      color: #2A2A26; max-width: 320px; line-height: 1.4;">
+      color: #2A2A26; max-width: 260px; line-height: 1.4;">
       <div style="font-weight: 600; margin-bottom: 4px;">Territorial layers</div>
       <div style="font-size: 0.8rem; color: #595950;">
-        Areas A / B / C from the 1995 Oslo II accord. Barrier alignment as of January 2018.
-        Settlements are Peace Now's mapped built-up footprints.
-        Toggle layers using the panel on the right.
+        Areas A and B (Palestinian administration) and Area C (full Israeli
+        control) from the 1995 Oslo II accord. Barrier alignment as of
+        January 2018. Settlements are Peace Now's mapped built-up footprints.
+        Click the layers icon (top-right) to toggle.
       </div>
       <div style="font-size: 0.7rem; color: #888; margin-top: 6px;">
         Sources: OCHA oPt (HDX) · Peace Now via HDX

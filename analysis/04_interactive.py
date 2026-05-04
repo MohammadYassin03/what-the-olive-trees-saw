@@ -477,17 +477,32 @@ def fig_damage_breakdown() -> None:
         text=[f"{v:,}" for v in vals],
         textposition="outside",
         textfont=dict(size=11, color=PALETTE["ink_soft"]),
+        cliponaxis=False,
         hovertemplate="<b>%{y}</b><br>%{x:,} events mention this keyword<extra></extra>",
         showlegend=False,
     ))
     fig.update_layout(**_base_layout(
         "Damage types described in event narratives",
         f"Of {len(pal):,} events targeting Palestinian civilians. Categories overlap.",
-        height=520,
+        height=560,
     ))
-    fig.update_layout(annotations=[_attribution(
-        "Source: keyword scan of ACLED event-level `notes` field · indicative, not definitive")])
-    fig.update_xaxes(title="", gridcolor=PALETTE["rule"], zeroline=False)
+    # No legend on this chart, so override the base bottom margin (which the
+    # other charts use to seat the legend) and pull the citation closer to
+    # the x-axis.
+    fig.update_layout(
+        margin=dict(l=180, r=80, t=110, b=90),
+        annotations=[dict(
+            text=f"<span style='font-size:10px;color:{PALETTE['ink_soft']}'>"
+                 "Source: keyword scan of ACLED event-level `notes` field · indicative, not definitive"
+                 "</span>",
+            xref="paper", yref="paper", x=1.0, y=-0.16,
+            xanchor="right", yanchor="top", showarrow=False)],
+    )
+    # Pad the x-axis on the right so the right-edge data labels (e.g. "5,253"
+    # for Homes and property) are not clipped by the plot area edge.
+    x_max = float(max(vals))
+    fig.update_xaxes(title="", gridcolor=PALETTE["rule"], zeroline=False,
+                     range=[0, x_max * 1.13])
     fig.update_yaxes(title="", gridcolor=PALETTE["rule"], zeroline=False)
     _write(fig, "damage_breakdown")
 

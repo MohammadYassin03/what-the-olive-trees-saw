@@ -117,7 +117,7 @@ If there is a single chart that defines the project's scale, this is it.
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/settler_population.html"
-          style="width:100%; min-height:580px; border:none;"
+          style="width:100%; min-height:610px; border:none;"
           loading="lazy"
           title="Interactive line chart of Israeli settler population in the West Bank, 1972–2025"></iframe>
 </div>
@@ -317,7 +317,7 @@ print(f"Between **{first} and {last}**, ACLED records **{int(total):,}** "
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/annual_targeting_harvest.html"
-          style="width:100%; min-height:540px; border:none;"
+          style="width:100%; min-height:570px; border:none;"
           loading="lazy"
           title="Interactive stacked bar of annual civilian-targeting events with harvest split"></iframe>
 </div>
@@ -353,7 +353,7 @@ The strongest finding in the dataset is not the climb. It is the *distance*. For
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/settlement_proximity.html"
-          style="width:100%; min-height:540px; border:none;"
+          style="width:100%; min-height:570px; border:none;"
           loading="lazy"
           title="Interactive histogram of distances from each event to nearest settlement"></iframe>
 </div>
@@ -381,7 +381,7 @@ The same pattern is visible, though more coarsely, at the governorate scale:
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/settlements_vs_events.html"
-          style="width:100%; min-height:620px; border:none;"
+          style="width:100%; min-height:650px; border:none;"
           loading="lazy"
           title="Interactive scatter of settlements per governorate vs civilian-targeting events"></iframe>
 </div>
@@ -451,7 +451,7 @@ print(f"ACLED records **{n_pal:,}** events between 2016 and 2025 in which "
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/perpetrator_breakdown.html"
-          style="width:100%; min-height:560px; border:none;"
+          style="width:100%; min-height:590px; border:none;"
           loading="lazy"
           title="Interactive stacked bar of events targeting Palestinian civilians by perpetrator"></iframe>
 </div>
@@ -466,7 +466,7 @@ The "Other Israeli (civilians, unidentified)" bar is worth flagging. ACLED only 
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/fatalities_by_event_type.html"
-          style="width:100%; min-height:540px; border:none;"
+          style="width:100%; min-height:570px; border:none;"
           loading="lazy"
           title="Interactive stacked-area chart of West Bank fatalities by event type"></iframe>
 </div>
@@ -494,7 +494,7 @@ The structured fields end at perpetrator and fatality count. The texture of what
 ```{=html}
 <div class="interactive-embed">
   <iframe src="interactive/damage_breakdown.html"
-          style="width:100%; min-height:520px; border:none;"
+          style="width:100%; min-height:580px; border:none;"
           loading="lazy"
           title="Interactive horizontal bar of damage-type keywords"></iframe>
 </div>

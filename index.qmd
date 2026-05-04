@@ -583,7 +583,7 @@ In June 2023, a settler attack on Turmus Ayya killed a Palestinian-American resi
 ```
 
 ::: {.figure-caption}
-Turmus Ayya occupies the broad valley at the centre of the frame, its grid of homes and the long bands of olive groves that climb the slopes to the north and south. The two settlements visible on the southern ridge are Shilo (the larger built-up block) and Shvut Rachel; smaller outposts sit on the intervening hilltops. Between 2013 and 2024 Shilo's perimeter pushes north and east toward the village's groves, Shvut Rachel roughly doubles in built-up extent, and at least two previously bare hilltops between them carry new clusters of structures and access tracks. *Imagery: Google Earth Pro historical archive, captures dated January 2013 and July 2024.*
+Turmus Ayya is the dense built-up village in the lower (southern) portion of the frame, with its grid of homes and the bands of olive groves climbing the slopes around it. The two settlements with the precise planned-grid layout in the upper (northern) portion of the frame are Shilo (the larger built-up block) and Shvut Rachel; smaller outposts sit on the intervening hilltops between them and Turmus Ayya. Between 2013 and 2024 Shilo's perimeter pushes south toward the village's groves, Shvut Rachel roughly doubles in built-up extent, and at least two previously bare hilltops in between carry new clusters of structures and access tracks. *Imagery: Google Earth Pro historical archive, captures dated January 2013 and July 2024.*
 :::
 
 :::
@@ -607,7 +607,7 @@ In April 2024, following the disappearance of an Israeli teenager nearby, hundre
 ```
 
 ::: {.figure-caption}
-Al-Mughayyir is the dense built-up village at the upper-left of the frame; the rest of the scene is the open hill country east toward the Jordan Valley where the Adei Ad / Esh Kodesh / Geulat Tzion / Ahiya cluster of outposts sits. The change between 2013 and 2024 is the most dramatic of the four villages: hilltops that in 2013 were either empty or held a handful of caravans now carry continuous settlement footprints, the outposts are joined by a graded road network that did not exist in the earlier image, and the agricultural terraces between the village and the eastern outposts are visibly more interrupted by tracks and clearings. *Imagery: Google Earth Pro historical archive, captures dated January 2013 and July 2024.*
+Al-Mughayyir village itself sits just north of this frame; what you see here is the cluster of settlements and unauthorized outposts directly south and east of it, on the hill country that drops toward the Jordan Valley. Visible across the frame are the outposts of Amihai (upper-left), Adei Ad (centre-left), Yeshuv Hada'at (centre), and others further east. The change between 2013 and 2024 is the most dramatic of the four villages: hilltops that in 2013 were either empty or held a handful of caravans now carry continuous settlement footprints, the outposts are joined by a graded road network that did not exist in the earlier image, and the agricultural terraces in the foreground are visibly more interrupted by tracks and clearings. *Imagery: Google Earth Pro historical archive, captures dated January 2013 and July 2024.*
 :::
 
 :::
@@ -631,7 +631,7 @@ The olive grove at At-Tuwani is small, but it is among the most thoroughly docum
 ```
 
 ::: {.figure-caption}
-At-Tuwani is the small village at the lower-right of the frame. The planted settlement of Ma'on sits on the ridge to the north, and the unauthorized outpost of Havat Ma'on occupies the wooded hilltop directly between them, the same hilltop the village's children walk past on the way to school. In 2013 Havat Ma'on is a tight cluster of perhaps a dozen structures inside a ring of trees; by 2024 the cluster has more than doubled, the planted woodland has been cut back along its southern edge, and new structures and tracks reach down the slope toward the path Operation Dove accompaniers have been escorting children along for two decades. *Imagery: Google Earth Pro historical archive, captures dated September 2013 and December 2024.*
+At-Tuwani is the small village on the left (western) side of the frame. The planted settlement of Ma'on sits to the east (right) on its ridge, and the unauthorized outpost of Havat Ma'on occupies the hilltop in between, the same hilltop the village's children walk past on the way to school. In 2013 Havat Ma'on is a tight cluster of perhaps a dozen structures inside a ring of trees; by 2024 the cluster has more than doubled, the planted woodland has been cut back along its edges, and new structures and tracks reach toward the path Operazione Colomba accompaniers have been escorting children along for two decades. *Imagery: Google Earth Pro historical archive, captures dated September 2013 and December 2024.*
 :::
 
 :::

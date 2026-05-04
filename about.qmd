@@ -15,7 +15,7 @@ DSAN-5200 · Spring 2026 · Final project.
 
 ## Source code
 
-All source is in the [project repository](https://github.com/dsan-5200/project-2026-35).
+All source is in the [project repository](https://github.com/MohammadYassin03/what-the-olive-trees-saw).
 
 Raw data is not committed (per course instructions and repository size limits). Processed CSVs used to render the site are committed under `data/processed/`.
 
